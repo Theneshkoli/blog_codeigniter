@@ -11,7 +11,7 @@
 		public function get_posts($slug=FALSE){
 			if($slug === FALSE){
 
-				$query = $this->db->order_by('post_id','DESC')->get('posts');
+				$query = $this->db->order_by('posts.post_id','DESC')->join('categories as cat', 'cat.id=posts.category_id')->get('posts');
 				return $query->result_array();
 			}
 
@@ -21,13 +21,15 @@
 
 		}
 
-		public function create_post(){
+		public function create_post($post_image){
 			$slug = url_title($this->input->post('b_title'));
 
 			$data = array(
 				'title' => $this->input->post('b_title'),
 				'slug'  => $slug,
-				'body'  => $this->input->post('b_body')
+				'body'  => $this->input->post('b_body'),
+				'category_id' => $this->input->post('category_id'),
+				'post_images' => $post_image
 				);
 
 			return $this->db->insert('posts',$data);
@@ -44,11 +46,17 @@
 			$data = array(
 				'title' => $this->input->post('b_title'),
 				'slug'  => $slug,
-				'body'  => $this->input->post('b_body')
+				'body'  => $this->input->post('b_body'),
+				'category_id' => $this->input->post('category_id')
 			);
 
 			$this->db->where('post_id', $this->input->post('post_id'))->update('posts', $data);
 			return true;
+		}
+
+		public function get_categories(){
+			$query = $this->db->order_by('name')->get('categories');
+			return $query->result_array();
 		}
 		
 	}

@@ -6,6 +6,7 @@
 			<small class="float-right">Posted on : <?= $post['created_at'];?></small>
 		</div>
 		<div class="card-body">
+			<img src="<?= site_url(); ?>assets/images/posts/<?= $post['post_images']; ?>" style="margin: 0 auto; " width="200">
 			<p><?= $post['body']; ?></p>
 		</div>
 		<div class="card-footer">

@@ -14,6 +14,14 @@
 			<label>Blog Body</label>
 			<textarea id="editor" type="text" name="b_body" class="form-control" placeholder="Type Blog details here"><?= $post['body'] ;?></textarea>
 		</div>
+		<div class="form-group">
+			<label>Select Category</label>
+			<select name="category_id" class="form-control">
+			<?php foreach ($categories as $category): ?>
+				<option value="<?= $category['id']; ?>"><?= $category['name']; ?></option>
+			<?php endforeach; ?>
+			</select>
+		</div>
 		<button type="submit" class="btn btn-primary">Update</button>
 	</form>
 </div>
